@@ -13,10 +13,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v5
         with:
-          fetch-depth: 1
+          fetch-depth: 0
+          token: ${{ github.token }}
 
       - name: Backup workflow
         run: |
@@ -27,17 +28,19 @@ jobs:
         run: |
           git clone --depth 1 https://github.com/25175/tvyuan.git /tmp/upstream
 
-      - name: Replace files
+      - name: Update files
         run: |
-          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
-          cp -a /tmp/upstream/. .
+          rsync -a --delete \
+            --exclude='.git/' \
+            --exclude='.github/workflows/update.yml' \
+            /tmp/upstream/ ./
 
       - name: Restore workflow
         run: |
           mkdir -p .github/workflows
           cp /tmp/workflow/update.yml .github/workflows/update.yml
 
-      - name: Commit changes
+      - name: Commit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -51,8 +54,6 @@ jobs:
 
           git commit -m "auto update from 25175/tvyuan"
 
-      - name: Push changes
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - name: Push
         run: |
-          git push "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" HEAD:${{ github.ref_name }}
+          git push origin HEAD:${{ github.ref_name }}
