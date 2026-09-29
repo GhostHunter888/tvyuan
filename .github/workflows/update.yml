@@ -16,19 +16,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
         with:
-          fetch-depth: 0
+          fetch-depth: 1
 
       - name: Backup workflow
         run: |
           mkdir -p /tmp/workflow
           cp .github/workflows/update.yml /tmp/workflow/update.yml
 
-      - name: Sync upstream
+      - name: Download upstream
         run: |
-          git clone https://github.com/25175/tvyuan.git /tmp/upstream
+          git clone --depth 1 https://github.com/25175/tvyuan.git /tmp/upstream
 
+      - name: Replace files
+        run: |
           find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
-
           cp -a /tmp/upstream/. .
 
       - name: Restore workflow
@@ -36,7 +37,7 @@ jobs:
           mkdir -p .github/workflows
           cp /tmp/workflow/update.yml .github/workflows/update.yml
 
-      - name: Commit and push
+      - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -50,4 +51,8 @@ jobs:
 
           git commit -m "auto update from 25175/tvyuan"
 
-          git push origin HEAD:${GITHUB_REF_NAME}
+      - name: Push changes
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git push "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" HEAD:${{ github.ref_name }}
