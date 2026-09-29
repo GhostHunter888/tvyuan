@@ -1,55 +1,55 @@
-name: TVBox 每日自动镜像
+name: 每日同步 TVBox
 
 on:
 schedule:
-- cron: '0 0 * * *'
+- cron: "0 0 * * *"
 workflow_dispatch:
 
 permissions:
 contents: write
 
 jobs:
-mirror:
+update:
 runs-on: ubuntu-latest
 
 ```
 steps:
-  - name: 拉取当前仓库
+  - name: 检出当前仓库
     uses: actions/checkout@v5
     with:
       fetch-depth: 0
 
   - name: 备份工作流
     run: |
-      mkdir -p /tmp/workflows
-      cp -a .github/workflows/. /tmp/workflows/
+      mkdir -p /tmp/workflow-backup
+      cp .github/workflows/update.yml /tmp/workflow-backup/update.yml
 
-  - name: 镜像上游仓库
+  - name: 同步上游
     run: |
-      git clone --mirror https://github.com/25175/tvyuan.git /tmp/upstream.git
+      git clone https://github.com/25175/tvyuan.git /tmp/upstream
 
-      git remote remove origin 2>/dev/null || true
-      git remote add origin https://github.com/${{ github.repository }}.git
+      rm -rf ./*
+      rm -rf ./.[!.]* ./..?* 2>/dev/null || true
 
-      git push origin --mirror
+      cp -a /tmp/upstream/. .
 
   - name: 恢复工作流
     run: |
-      git fetch origin
-      git checkout -B master origin/master
+      mkdir -p .github/workflows
+      cp /tmp/workflow-backup/update.yml .github/workflows/update.yml
 
-      cp -a /tmp/workflows/. .github/workflows/
-
+  - name: 提交并推送
+    run: |
       git config user.name "github-actions[bot]"
       git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      git add .github/workflows
+      git add -A
 
       if git diff --cached --quiet; then
-        echo "工作流无需恢复"
+        echo "没有需要更新的内容"
         exit 0
       fi
 
-      git commit -m "Keep GitHub Actions workflow"
-      git push origin master
+      git commit -m "auto update from 25175/tvyuan"
+      git push origin HEAD:master
 ```
