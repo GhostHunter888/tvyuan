@@ -1,8 +1,8 @@
-name: 每日同步 TVBox
+name: Daily TVBox Sync
 
 on:
   schedule:
-    - cron: "0 15 * * *"
+    - cron: "0 0 * * *"
   workflow_dispatch:
 
 permissions:
@@ -13,18 +13,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
       - name: Backup workflow
-        run: cp .github/workflows/update.yml /tmp/update.yml
+        run: |
+          cp .github/workflows/update.yml /tmp/update.yml
 
-      - name: Download upstream
+      - name: Sync upstream
         run: |
           git clone https://github.com/25175/tvyuan.git /tmp/upstream
-          rm -rf ./*
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
           cp -a /tmp/upstream/. .
 
       - name: Restore workflow
@@ -37,5 +38,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -m "auto update from 25175/tvyuan" || echo "No changes"
+          git diff --cached --quiet && echo "No changes" && exit 0
+          git commit -m "auto update from 25175/tvyuan"
           git push origin HEAD:master
