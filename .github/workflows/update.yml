@@ -2,7 +2,7 @@ name: Daily TVBox Sync
 
 on:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "0 15 * * *"
   workflow_dispatch:
 
 permissions:
@@ -20,24 +20,34 @@ jobs:
 
       - name: Backup workflow
         run: |
-          cp .github/workflows/update.yml /tmp/update.yml
+          mkdir -p /tmp/workflow
+          cp .github/workflows/update.yml /tmp/workflow/update.yml
 
       - name: Sync upstream
         run: |
           git clone https://github.com/25175/tvyuan.git /tmp/upstream
+
           find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+
           cp -a /tmp/upstream/. .
 
       - name: Restore workflow
         run: |
           mkdir -p .github/workflows
-          cp /tmp/update.yml .github/workflows/update.yml
+          cp /tmp/workflow/update.yml .github/workflows/update.yml
 
       - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
           git add -A
-          git diff --cached --quiet && echo "No changes" && exit 0
+
+          if git diff --cached --quiet; then
+            echo "No changes"
+            exit 0
+          fi
+
           git commit -m "auto update from 25175/tvyuan"
-          git push origin HEAD:master
+
+          git push origin HEAD:${GITHUB_REF_NAME}
