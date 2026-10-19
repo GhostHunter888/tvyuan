@@ -2,8 +2,53 @@
   "spider": "",
   "sites": [
     {
+      "key": "360资源",
+      "name": "[389KB/s|2409ms|中] 360资源",
+      "type": 1,
+      "api": "https://360zy.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
+      "key": "🍏如意",
+      "name": "[3652KB/s|1244ms|稳] 🍏如意",
+      "type": 1,
+      "api": "https://cj.rycjapi.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
+      "key": "🍏新浪",
+      "name": "[3464KB/s|327ms|稳] 🍏新浪",
+      "type": 1,
+      "api": "https://api.xinlangapi.com/xinlangapi.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
+      "key": "如意资源网",
+      "name": "[3263KB/s|1351ms|稳] 如意资源网",
+      "type": 0,
+      "api": "https://cj.rycjapi.com/api.php/provide/vod/at/xml/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
+      "key": "🌼如意┃影视🌼",
+      "name": "[3150KB/s|1157ms|稳] 🌼如意┃影视🌼",
+      "type": 1,
+      "api": "http://cj.rycjapi.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
       "key": "👖裤佬丨采集",
-      "name": "[9989KB/s|832ms|稳] 👖裤佬丨采集",
+      "name": "[2821KB/s|756ms|稳] 👖裤佬丨采集",
       "type": 1,
       "api": "https://api.wsyzy.net/api.php/provide/vod",
       "searchable": 1,
@@ -11,62 +56,17 @@
       "filterable": 0
     },
     {
-      "key": "🍏无印",
-      "name": "[3359KB/s|867ms|稳] 🍏无印",
+      "key": "烂大街",
+      "name": "[2473KB/s|398ms|稳] 烂大街",
       "type": 1,
-      "api": "https://api.wsyzy.net/api.php/provide/vod/",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 0
-    },
-    {
-      "key": "淫水机",
-      "name": "[3247KB/s|256ms|稳] 淫水机",
-      "type": 0,
-      "api": "https://www.xrbsp.com/api/xml.php",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 0
-    },
-    {
-      "key": "湿妹 | 采集",
-      "name": "[3139KB/s|242ms|稳] 湿妹 | 采集",
-      "type": 0,
-      "api": "http://www.afasu.com/api/xml.php",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 0
-    },
-    {
-      "key": "🍊精东",
-      "name": "[1970KB/s|539ms|稳] 🍊精东",
-      "type": 1,
-      "api": "http://chujia.cc/api.php/provide/vod/from/m3u8/",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 0
-    },
-    {
-      "key": "🍊98",
-      "name": "[1779KB/s|1103ms|稳] 🍊98",
-      "type": 1,
-      "api": "https://jp98.vip/api.php/provide/vod/",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 0
-    },
-    {
-      "key": "🍏爱坤",
-      "name": "[1777KB/s|872ms|稳] 🍏爱坤",
-      "type": 1,
-      "api": "https://ikunzyapi.com/api.php/provide/vod",
+      "api": "https://www.huyaapi.com/api.php/provide/vod/",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 0
     },
     {
       "key": "🍊鸡坤",
-      "name": "[1717KB/s|781ms|稳] 🍊鸡坤",
+      "name": "[2463KB/s|710ms|稳] 🍊鸡坤",
       "type": 1,
       "api": "https://jkunzyapi.com/api.php/provide/vod/at/json",
       "searchable": 1,
@@ -74,19 +74,19 @@
       "filterable": 0
     },
     {
-      "key": "iKun资源",
-      "name": "[1627KB/s|878ms|稳] iKun资源",
-      "type": 0,
-      "api": "https://ikunzyapi.com/api.php/provide/vod/at/xml",
+      "key": "🍏红牛",
+      "name": "[2434KB/s|2610ms|稳] 🍏红牛",
+      "type": 1,
+      "api": "https://www.hongniuzy2.com/api.php/provide/vod/",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 0
     },
     {
-      "key": "🍊19",
-      "name": "[1607KB/s|562ms|稳] 🍊19",
+      "key": "🍏火狐",
+      "name": "[2359KB/s|335ms|稳] 🍏火狐",
       "type": 1,
-      "api": "https://19q.cc/api.php/provide/vod",
+      "api": "https://hhzyapi.com/api.php/provide/vod/at/json",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 0
